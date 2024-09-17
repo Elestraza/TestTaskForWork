@@ -25,22 +25,22 @@ namespace TestTaskForWork
             newLabel.ForeColor = Color.Black;
             newLabel.AutoSize = true;
 
-            // Устанавливаем координаты
+            // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєРѕРѕСЂРґРёРЅР°С‚С‹
             if (lastLabel != null)
             {
-                // Если есть предыдущая метка, расположим новую ниже неё с отступом
+                // Р•СЃР»Рё РµСЃС‚СЊ РїСЂРµРґС‹РґСѓС‰Р°СЏ РјРµС‚РєР°, СЂР°СЃРїРѕР»РѕР¶РёРј РЅРѕРІСѓСЋ РЅРёР¶Рµ РЅРµС‘ СЃ РѕС‚СЃС‚СѓРїРѕРј
                 newLabel.Location = new Point(lastLabel.Location.X, lastLabel.Location.Y + lastLabel.Height + 10);
             }
             else
             {
-                // Если меток ещё нет, добавим первую метку в верхней части панели
+                // Р•СЃР»Рё РјРµС‚РѕРє РµС‰С‘ РЅРµС‚, РґРѕР±Р°РІРёРј РїРµСЂРІСѓСЋ РјРµС‚РєСѓ РІ РІРµСЂС…РЅРµР№ С‡Р°СЃС‚Рё РїР°РЅРµР»Рё
                 newLabel.Location = new Point(10, 10);
             }
 
             panel1.Controls.Add(newLabel);
         }
 
-        private void tbQuantity_KeyPress(object sender, KeyPressEventArgs e) // Обрабатываем нажатие цифр
+        private void tbQuantity_KeyPress(object sender, KeyPressEventArgs e) // РћР±СЂР°Р±Р°С‚С‹РІР°РµРј РЅР°Р¶Р°С‚РёРµ С†РёС„СЂ
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
@@ -57,7 +57,7 @@ namespace TestTaskForWork
                 }
                 var dtime = DateTime.Now;
                 context.Database.ExecuteSqlRaw("CALL AddOrder({0})", dtime);
-                AddLabelToPanel($"Заказ № {_lastOrderId} от {dtime} заказан.");
+                AddLabelToPanel($"Р—Р°РєР°Р· в„– {_lastOrderId} РѕС‚ {dtime} Р·Р°РєР°Р·Р°РЅ.");
             }
         }
 
@@ -66,7 +66,7 @@ namespace TestTaskForWork
 
             if (_currentOrderId <= 0)
             {
-                MessageBox.Show("Сначала создайте заказ.");
+                MessageBox.Show("РЎРЅР°С‡Р°Р»Р° СЃРѕР·РґР°Р№С‚Рµ Р·Р°РєР°Р·.");
                 return;
             }
 
@@ -78,20 +78,20 @@ namespace TestTaskForWork
                 {
                     if (order.iscancelled)
                     {
-                        MessageBox.Show("Заказ уже отменен.");
+                        MessageBox.Show("Р—Р°РєР°Р· СѓР¶Рµ РѕС‚РјРµРЅРµРЅ.");
                         return;
                     }
 
-                    // Устанавливаем статус отмены
+                    // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЃС‚Р°С‚СѓСЃ РѕС‚РјРµРЅС‹
                     order.iscancelled = true;
                     context.SaveChanges();
 
-                    string cancellationMessage = $"Заказ № {order.id} был успешно отменен.";
+                    string cancellationMessage = $"Р—Р°РєР°Р· в„– {order.id} Р±С‹Р» СѓСЃРїРµС€РЅРѕ РѕС‚РјРµРЅРµРЅ.";
                     AddLabelToPanel(cancellationMessage);
                 }
                 else
                 {
-                    MessageBox.Show("Заказ не найден.");
+                    MessageBox.Show("Р—Р°РєР°Р· РЅРµ РЅР°Р№РґРµРЅ.");
                 }
             }
         }
@@ -100,14 +100,14 @@ namespace TestTaskForWork
         {
             using (var context = new AssemblyContext())
             {
-                // Получаем все заказы
+                // РџРѕР»СѓС‡Р°РµРј РІСЃРµ Р·Р°РєР°Р·С‹
                 var orders = context.order.ToList();
-                // Выводим информацию о заказах
+                // Р’С‹РІРѕРґРёРј РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ Р·Р°РєР°Р·Р°С…
                 foreach (var order in orders)
                 {
                     string canceled = "";
-                    if (order.iscancelled == true) canceled = "(Отменен)";
-                    string orderStr = $"Заказ № {order.id} от {order.orderdate} {canceled}";
+                    if (order.iscancelled == true) canceled = "(РћС‚РјРµРЅРµРЅ)";
+                    string orderStr = $"Р—Р°РєР°Р· в„– {order.id} РѕС‚ {order.orderdate} {canceled}";
                     AddLabelToPanel(orderStr);
                     _currentOrderId = order.id;
                 }
