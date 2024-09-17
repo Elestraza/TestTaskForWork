@@ -16,7 +16,7 @@ namespace TestTaskForWork.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;database=nomenclature;user=root;password=ytevt.ghblevsdfnmgfhjkb",
+            optionsBuilder.UseMySql("server=localhost;database=database;user=root;password=password",
                 new MySqlServerVersion(new Version(8, 0, 21)));
         }
 
