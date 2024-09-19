@@ -60,7 +60,7 @@ CREATE TABLE Inventory (
 
 -- Процедура добавления заказа
 -- АААААААА! в квардрате
-CREATE PROCEDURE AddOrder(IN pOrderDate DATETIME, IN pNomenclatureID INT, IN pQuantity INT) -- Error: ssemblyTime is NULL or 0 for NomenclatureID: {id}. Как решать, хз. Думаю 
+CREATE PROCEDURE AddOrder(IN pOrderDate DATETIME, IN pNomenclatureID INT, IN pQuantity INT) -- Error: AssemblyTime is NULL or 0 for NomenclatureID: {id}. Как решать, хз. Думаю 
 BEGIN
     DECLARE assemblyTime INT DEFAULT 0;  -- Установка значения по умолчанию
     DECLARE errorMessage TEXT;
